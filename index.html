@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@100..900&family=Manrope:wght@200..800&display=swap"
+    rel="stylesheet">
+
+  <title>Frontend Mentor | Advice generator app</title>
+
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #202632;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+
+    }
+
+    .advice-box {
+      width: 500px;
+      height: 300px;
+      background-color: #313a49;
+      padding: 30px;
+      color: white;
+      font-family: "Manrope", sans-serif;
+      font-weight: 700;
+      text-align: center;
+      border-radius: 25px;
+      position: absolute;
+
+    }
+
+    .advice {
+      font-size: 1.5rem;
+      margin-bottom: 50px;
+    }
+
+    .btn {
+      outline: none;
+      border: none;
+      background-color: hsl(150, 100%, 66%);
+      padding: 15px;
+      border-radius: 250px;
+      position: absolute;
+      left: 225px;
+      top: 270px;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .pattern {
+      transform: translateY(-39px);
+      display: inline;
+      width: 400px;
+      /* background-color: hsl(217, 19%, 38%); */
+    }
+
+    .btn:hover {
+      -webkit-box-shadow: 0px 0px 43px 5px hsl(150, 100%, 66%);
+      -moz-box-shadow: 0px 0px 43px 5px hsl(150, 100%, 66%);
+      box-shadow: 0px 0px 43px 5px hsl(150, 100%, 66%);
+    }
+
+    .advice-num {
+      color: hsl(150, 100%, 66%);
+    }
+
+    @media (max-width:600px) {
+      .advice-box {
+        width: 350px;
+        height: 350px;
+      }
+
+      .pattern {
+        width: 250px;
+      }
+
+      .btn {
+        left: 150px;
+        top: 320px;
+      }
+
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <div class="advice-box">
+    <p class="advice-num">Advice </p>
+    <p class="advice">Press the Button to generate an advice
+    </p>
+    <img src="images/pattern-divider-desktop.svg" alt="" class="pattern">
+
+    <button class="btn"><img src="images/icon-dice.svg" alt=""></button>
+  </div>
+
+
+
+
+  <script>
+    const adviceEl = document.querySelector('.advice');
+    const adviceNumEl = document.querySelector('.advice-num')
+    const btn = document.querySelector('.btn')
+    // https://api.adviceslip.com/advice
+    async function generate() {
+      const res = await fetch('https://api.adviceslip.com/advice');
+      const advice = await res.json();
+      // console.log(advice.slip.id)
+      adviceEl.textContent = advice.slip.advice;
+      adviceNumEl.textContent = `Advice #${advice.slip.id}`;
+    }
+    btn.addEventListener('click', generate)
+  </script>
+</body>
+
+</html>
